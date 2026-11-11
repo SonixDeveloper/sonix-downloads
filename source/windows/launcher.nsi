@@ -17,9 +17,9 @@ Section
   StrCpy $0 "$PROGRAMFILES32\Microsoft\Edge\Application\msedge.exe"
   launch:
     ClearErrors
-    Exec '"$0" --app="https://sonixdeveloper.github.io/sonix-downloads/launch.html"'
-    IfErrors fallback done
+    Exec '"$0" --app="https://sonixapp-community.urbanclover.chatgpt.site/"'
+    IfErrors done
   fallback:
-    ExecShell "open" "https://sonixdeveloper.github.io/sonix-downloads/launch.html"
+    MessageBox MB_ICONSTOP "Microsoft Edge is required to run SonixApp. Install or repair Edge, then launch Sonix again."
   done:
 SectionEnd
