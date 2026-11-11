@@ -1,5 +1,5 @@
 Package: sonix-chat
-Version: 0.1.4
+Version: 0.1.5
 Section: net
 Priority: optional
 Architecture: amd64

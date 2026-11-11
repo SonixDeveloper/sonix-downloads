@@ -4,7 +4,7 @@ imports.gi.versions.Gtk = '3.0';
 imports.gi.versions.WebKit2 = '4.1';
 const {Gio, GLib, Gtk, WebKit2} = imports.gi;
 const launcher = 'https://sonixapp-community.urbanclover.chatgpt.site/';
-const previewPattern = /^https:\/\/(?:[a-z0-9-]+\.trycloudflare\.com|sonixapp-community\.urbanclover\.chatgpt\.site)(?=\/|$)/;
+const previewPattern = /^https:\/\/sonixapp-community\.urbanclover\.chatgpt\.site(?=\/|$)/;
 const previewOrigin = 'https://sonixapp-community.urbanclover.chatgpt.site';
 
 const app = new Gtk.Application({application_id: 'io.github.SonixDeveloper.Sonix'});
@@ -37,7 +37,6 @@ app.connect('activate', () => {
             if (url === 'about:blank') return false;
             const origin = url.match(previewPattern)?.[0];
             if (origin && origin === previewOrigin) {
-                previewOrigin = origin;
                 return false;
             }
         }
