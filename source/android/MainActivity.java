@@ -42,6 +42,9 @@ public final class MainActivity extends Activity {
         web.getSettings().setAllowContentAccess(false);
         CookieManager.getInstance().setAcceptThirdPartyCookies(web, false);
         web.setWebViewClient(new WebViewClient() {
+            @Override public void onPageFinished(WebView view, String url) {
+                CookieManager.getInstance().flush();
+            }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if (!request.isForMainFrame()) return false;
                 Uri url = request.getUrl();
@@ -161,6 +164,11 @@ public final class MainActivity extends Activity {
     @Override public void onBackPressed() {
         if (web.canGoBack()) web.goBack();
         else super.onBackPressed();
+    }
+
+    @Override protected void onPause() {
+        super.onPause();
+        CookieManager.getInstance().flush();
     }
 
     @Override protected void onDestroy() {
