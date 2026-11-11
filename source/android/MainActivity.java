@@ -8,6 +8,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Build;
+import android.view.WindowInsets;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.webkit.CookieManager;
 import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
@@ -95,7 +100,27 @@ public final class MainActivity extends Activity {
                 return true;
             }
         });
-        setContentView(web);
+        if (Build.VERSION.SDK_INT >= 30) {
+            getWindow().setDecorFitsSystemWindows(false);
+            FrameLayout content = new FrameLayout(this);
+            content.setBackgroundColor(Color.rgb(16, 13, 18));
+            content.addView(web, new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+            content.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @Override public WindowInsets onApplyWindowInsets(View view, WindowInsets insets) {
+                    android.graphics.Insets bars = insets.getInsets(
+                            WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
+                    android.graphics.Insets keyboard = insets.getInsets(WindowInsets.Type.ime());
+                    view.setPadding(bars.left, bars.top, bars.right, Math.max(bars.bottom, keyboard.bottom));
+                    return insets;
+                }
+            });
+            setContentView(content);
+            content.requestApplyInsets();
+        } else {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            setContentView(web);
+        }
         web.loadUrl(LAUNCHER);
     }
 

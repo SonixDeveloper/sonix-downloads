@@ -60,6 +60,14 @@ app.connect('activate', () => {
     });
     window.add(web);
     window.show_all();
+    let refreshed = false;
+    web.connect('load-changed', (_view, event) => {
+        if (!refreshed && event === WebKit2.LoadEvent.FINISHED && previewOrigin &&
+            web.get_uri()?.startsWith(previewOrigin + '/')) {
+            refreshed = true;
+            web.reload_bypass_cache();
+        }
+    });
     web.load_uri(launcher);
 });
 app.run(ARGV);
