@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-version=${1:-0.1.4}
+version=${1:-0.1.5}
 output=${2:-.}
 root=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 package="${TMPDIR:-/tmp}/sonix-deb-package-$$"
