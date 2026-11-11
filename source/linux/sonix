@@ -4,7 +4,7 @@ imports.gi.versions.Gtk = '3.0';
 imports.gi.versions.WebKit2 = '4.1';
 const {Gio, GLib, Gtk, WebKit2} = imports.gi;
 const launcher = 'https://sonixdeveloper.github.io/sonix-downloads/launch.html';
-const previewPattern = /^https:\/\/[a-z0-9-]+\.trycloudflare\.com(?=\/|$)/;
+const previewPattern = /^https:\/\/(?:[a-z0-9-]+\.trycloudflare\.com|sonixapp-community\.urbanclover\.chatgpt\.site)(?=\/|$)/;
 
 const app = new Gtk.Application({application_id: 'io.github.SonixDeveloper.Sonix'});
 app.connect('activate', () => {

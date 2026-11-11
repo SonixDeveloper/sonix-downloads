@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public final class MainActivity extends Activity {
     private static final String LAUNCHER = "https://sonixdeveloper.github.io/sonix-downloads/launch.html";
+    private static final String SONIX_HOST = "sonixapp-community.urbanclover.chatgpt.site";
     private static final int MEDIA_REQUEST = 1;
     private static final int FILE_REQUEST = 2;
     private WebView web;
@@ -51,6 +52,10 @@ public final class MainActivity extends Activity {
                 if (LAUNCHER.equals(url.toString())) return false;
                 String host = url.getHost();
                 if ("https".equals(url.getScheme()) && host != null && url.getPort() == -1) {
+                    if (SONIX_HOST.equals(host)) {
+                        previewHost = host;
+                        return false;
+                    }
                     if (host.equals(previewHost)) return false;
                     if (previewHost == null && host.matches("[a-z0-9-]+\\.trycloudflare\\.com")
                             && LAUNCHER.equals(view.getUrl())) {
